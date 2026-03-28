@@ -1,0 +1,36 @@
+async function setReminder() {
+  const message = (document.getElementById("message") as HTMLInputElement).value;
+  const time = (document.getElementById("time") as HTMLInputElement).value;
+
+  await fetch("/api/reminders/set", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, reminderTime: time })
+  });
+
+  alert("Reminder set");
+}
+
+async function updateReminder() {
+  const id = (document.getElementById("id") as HTMLInputElement).value;
+  const message = (document.getElementById("message") as HTMLInputElement).value;
+  const time = (document.getElementById("time") as HTMLInputElement).value;
+
+  await fetch("/api/reminders/update", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: Number(id), message, reminderTime: time })
+  });
+
+  alert("Reminder updated");
+}
+
+async function deleteReminder() {
+  const id = (document.getElementById("id") as HTMLInputElement).value;
+
+  await fetch(`/api/reminders/delete/${id}`, {
+    method: "DELETE"
+  });
+
+  alert("Reminder deleted");
+}
